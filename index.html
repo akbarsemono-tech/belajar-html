@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archivum Utama Web Development - 90 Modul Komplit</title>
+    <style>
+        /* --- DESIGN SYSTEM: SUNYI, INDAH, BERCAHAYA DEEP GLOW --- */
+        :root {
+            --bg-deep: #030712;
+            --bg-surface: #0b1329;
+            --bg-card: #111c44;
+            --teks-terang: #f9fafb;
+            --teks-normal: #e5e7eb;
+            --teks-muting: #9ca3af;
+            
+            --neon-html: #ff4a4a;
+            --neon-css: #22a6ff;
+            --neon-js: #fcd34d;
+            
+            --glow-html: rgba(255, 74, 74, 0.4);
+            --glow-css: rgba(34, 166, 255, 0.4);
+            --glow-js: rgba(252, 211, 77, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--teks-normal);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION BAR --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: rgba(3, 7, 18, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 2000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 3rem;
+        }
+
+        /* --- BRAND LOGO AREA (Rasio 1:1 Presisi) --- */
+        .brand-logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .logo-img-file {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .brand-text {
+            font-size: 1.2rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: var(--teks-terang);
+        }
+
+        /* --- HAMBURGER TRIGGER BUTTON --- */
+        .hamburger-container {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            z-index: 2500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hamburger-container span {
+            display: block;
+            width: 26px;
+            height: 3px;
+            background-color: var(--teks-terang);
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        /* PERBAIKAN DI SINI: Nama class disamakan menjadi active-btn agar terbaca JavaScript */
+        .hamburger-container.active-btn span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+            background-color: var(--neon-html);
+        }
+        .hamburger-container.active-btn span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        .hamburger-container.active-btn span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+            background-color: var(--neon-html);
+        }
+
+        /* --- SLIDE SIDEBAR PANEL --- */
+        .sidebar-panel {
+            position: fixed;
+            top: 0;
+            right: -380px;
+            width: 380px;
+            height: 100vh;
+            background: rgba(11, 19, 41, 0.98);
+            backdrop-filter: blur(30px);
+            box-shadow: -20px 0 50px rgba(0, 0, 0, 0.8);
+            z-index: 2200;
+            padding: 120px 2.5rem 2.5rem 2.5rem;
+            transition: right 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .sidebar-panel.show {
+            right: 0 !important;
+        }
+
+        .sidebar-header-text {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--teks-muting);
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 0.8rem;
+        }
+
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .menu-btn {
+            display: block;
+            padding: 1.3rem;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-html { color: var(--neon-html); }
+        .nav-html:hover { background: var(--neon-html); color: #000; box-shadow: 0 0 30px var(--glow-html); }
+
+        .nav-css { color: var(--neon-css); }
+        .nav-css:hover { background: var(--neon-css); color: #000; box-shadow: 0 0 30px var(--glow-css); }
+
+        .nav-js { color: var(--neon-js); }
+        .nav-js:hover { background: var(--neon-js); color: #000; box-shadow: 0 0 30px var(--glow-js); }
+
+        /* --- TEMPLATE HALAMAN MATERI --- */
+        .page-wrapper {
+            display: none;
+            max-width: 1400px;
+            margin: 120px auto 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .page-wrapper.active-page {
+            display: block;
+        }
+
+        .jumbotron {
+            padding: 5rem 3rem;
+            border-radius: 24px;
+            margin-bottom: 4rem;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+        .html-jumbo { background: linear-gradient(135deg, rgba(255,74,74,0.08) 0%, rgba(3,7,18,1) 100%); border-left: 6px solid var(--neon-html); }
+        .css-jumbo { background: linear-gradient(135deg, rgba(34,166,255,0.08) 0%, rgba(3,7,18,1) 100%); border-left: 6px solid var(--neon-css); }
+        .js-jumbo { background: linear-gradient(135deg, rgba(252,211,77,0.08) 0%, rgba(3,7,18,1) 100%); border-left: 6px solid var(--neon-js); }
+
+        .jumbotron h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 1rem; color: var(--teks-terang); }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        .materi-card {
+            background: var(--bg-surface);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid rgba(255,255,255,0.02);
+            transition: transform 0.3s ease;
+        }
+        .materi-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.06); }
+
+        .materi-card h2 { font-size: 1.8rem; margin-bottom: 1rem; color: var(--teks-terang); }
+        .materi-card p { color: var(--teks-normal); text-align: justify; margin-bottom: 1.5rem; }
+
+        pre {
+            background-color: #010409;
+            padding: 1.5rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            border: 1px solid rgba(255,255,255,0.05);
+            font-family: 'Consolas', 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #c9d1d9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 5rem;
+            color: var(--teks-muting);
+            border-top: 1px solid rgba(255,255,255,0.03);
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand-logo-wrapper" id="logo-home-trigger">
+            <img src="logo.png" alt="Logo" class="logo-img-file">
+            <div class="brand-text" id="header-title">HTML ARCHIVE</div>
+        </div>
+        
+        <div class="hamburger-container" id="menu-trigger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <aside class="sidebar-panel" id="side-panel">
+        <div class="sidebar-header-text" id="context-title">Modul Navigasi</div>
+        <div class="menu-list" id="inject-links">
+            </div>
+    </aside>
+
+    <main id="view-html" class="page-wrapper active-page">
+        <div class="jumbotron html-jumbo">
+            <h1>Arsitektur Semantik HTML5</h1>
+            <p>30 Modul komprehensif penulisan data struktural internet berstandar W3C.</p>
+        </div>
+        <div class="grid-container" id="html-content-area"></div>
+    </main>
+
+    <main id="view-css" class="page-wrapper">
+        <div class="jumbotron css-jumbo">
+            <h1>Desain Visual & Komposisi CSS3</h1>
+            <p>30 Modul rekayasa antarmuka, tata letak multi-dimensi, dan bervariasi.</p>
+        </div>
+        <div class="grid-container" id="css-content-area"></div>
+    </main>
+
+    <main id="view-javascript" class="page-wrapper">
+        <div class="jumbotron js-jumbo">
+            <h1>Logika Engine ECMAScript Next</h1>
+            <p>30 Modul eksekusi logika, manajemen runtime memori, dan penanganan data asinkronus.</p>
+        </div>
+        <div class="grid-container" id="js-content-area"></div>
+    </main>
+
+    <footer>
+        <p>MEGA ARCHIVE WEB DEVELOPMENT &copy; 2026 - FULL 90 DATA MATERI UTUH</p>
+    </footer>
+
+    <script>
+        // DATA MATERI LENGKAP
+        const dataHTML = [
+            { id: 1, judul: "1. Dokumen Proklamasi DOCTYPE HTML", isi: "Deklarasi wajib awal dokumen untuk memberi tahu mesin browser bahwa rendering menggunakan mode standar W3C penuh.", code: "&lt;!DOCTYPE html&gt;" },
+            { id: 2, judul: "2. Elemen Root & Lokalisasi Atribut Lang", isi: "Akar pohon DOM pembungkus seluruh struktur kode. Atribut lang mendefinisikan bahasa utama dokumen demi mesin pencari.", code: "&lt;html lang=\"id\"&gt;\n&lt;/html&gt;" },
+            { id: 3, judul: "3. Metadata Konfigurasi Charset UTF-8", isi: "Instruksi bitwise stream untuk memastikan bahwa enkoding karakter universal dibaca dengan benar.", code: "&lt;meta charset=\"UTF-8\"&gt;" },
+            { id: 4, judul: "4. Pengaturan Viewport Responsif Otomatis", isi: "Menyelaraskan rasio lebar konten halaman web agar langsung pas di layar perangkat seluler tanpa zoom manual.", code: "&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"&gt;" },
+            { id: 5, judul: "5. Hierarki Judul Teks (Heading H1 - H6)", isi: "Struktur pembobotan informasi artikel. H1 sebagai judul utama tunggal, diikuti sub-judul level berikutnya secara berurutan.", code: "&lt;h1&gt;Judul Utama&lt;/h1&gt;" },
+            { id: 6, judul: "6. Tag Paragraf Elemen Blok", isi: "Membentuk kumpulan baris teks menjadi blok mandiri dengan margin atas bawah otomatis.", code: "&lt;p&gt;Ini adalah teks paragraf terstruktur.&lt;/p&gt;" },
+            { id: 7, judul: "7. Pemutus Baris Mekanis Line Break", isi: "Memotong kalimat teks ke baris baru secara paksa tanpa memicu spasi atau margin antar paragraf baru.", code: "Baris Satu.&lt;br&gt;Baris Dua." },
+            { id: 8, judul: "8. Atribut Global Pengenal ID Unik", isi: "Identitas absolut khusus tunggal yang tidak boleh kembar di dalam satu file halaman dokumen web.", code: "&lt;div id=\"blok-spesial\"&gt;&lt;/div&gt;" },
+            { id: 9, judul: "9. Pengelompokan Elemen Menggunakan Class", isi: "Penanda pengenal massal yang bisa dipasang ke banyak tag sekaligus agar bisa di-styling serentak.", code: "&lt;p class=\"teks-bercahaya\"&gt;&lt;/p&gt;" },
+            { id: 10, judul: "10. Penulisan Gaya Inline Style Atribut", isi: "Menyisipkan instruksi visual CSS langsung ke dalam tag HTML. Tidak direkomendasikan untuk proyek besar.", code: "&lt;p style=\"color: red;\"&gt;&lt;/p&gt;" },
+            { id: 11, judul: "11. Tag Jangkar Hyperlink Anchor", isi: "Pondasi utama internet untuk menghubungkan satu file lokal menuju semesta tautan URL eksternal lainnya.", code: "&lt;a href=\"#\"&gt;Link&lt;/a&gt;" },
+            { id: 12, judul: "12. Penyisipan Media Visual Gambar", isi: "Elemen kosong inline-block untuk memuat gambar luar dengan kewajiban menulis deskripsi alternatif.", code: "&lt;img src=\"img.png\" alt=\"text\"&gt;" },
+            { id: 13, judul: "13. Struktur Daftar Berurutan Ordered List", isi: "Membuat daftar poin-poin data yang memiliki urutan numerik klasifikasi kronologis berurutan otomatis.", code: "&lt;ol&gt;&lt;li&gt;Step&lt;/li&gt;&lt;/ol&gt;" },
+            { id: 14, judul: "14. Daftar Acak Unordered List", isi: "Menyusun baris data poin tanpa peduli urutan kronologis, digantikan dengan simbol peluru.", code: "&lt;ul&gt;&lt;li&gt;Item&lt;/li&gt;&lt;/ol&gt;" },
+            { id: 15, judul: "15. Pembungkus Konten Kontainer Generik Div", isi: "Elemen blok murni tanpa makna bawaan yang berfungsi mengelompokkan blok-blok besar.", code: "&lt;div&gt;&lt;/div&gt;" },
+            { id: 16, judul: "16. Penanda Teks Generik Inline Span", isi: "Kontainer teks inline tanpa arti semantik untuk membungkus beberapa patah kata di dalam paragraf.", code: "&lt;span&gt;&lt;/span&gt;" },
+            { id: 17, judul: "17. Tag Semantik Navigasi Konten", isi: "Menandakan area penampung menu-menu link navigasi utama dari sebuah situs web.", code: "&lt;nav&gt;&lt;/nav&gt;" },
+            { id: 18, judul: "18. Elemen Utama Header Dokumen", isi: "Membungkus area atas halaman yang biasanya berisi logo, judul situs, atau navigasi utama.", code: "&lt;header&gt;&lt;/header&gt;" },
+            { id: 19, judul: "19. Elemen Kaki Halaman Footer", isi: "Menandai blok informasi terbawah situs, biasanya diisi hak cipta dan kontak sosial media.", code: "&lt;footer&gt;&lt;/footer&gt;" },
+            { id: 20, judul: "20. Blok Artikel Mandiri Standalone", isi: "Elemen semantik untuk membungkus konten yang dapat berdiri sendiri secara utuh seperti postingan blog.", code: "&lt;article&gt;&lt;/article&gt;" },
+            { id: 21, judul: "21. Blok Bagian Seksi Konten Section", isi: "Pembagi bab atau kelompok tema pembahasan spesifik dalam sebuah dokumen panjang halaman web.", code: "&lt;section&gt;&lt;/section&gt;" },
+            { id: 22, judul: "22. Konten Pendamping Sampingan Aside", isi: "Menandai bagian halaman yang berisi info tambahan diluar topik utama seperti sidebar widget.", code: "&lt;aside&gt;&lt;/aside&gt;" },
+            { id: 23, judul: "23. Penampung Data Formulir Form", isi: "Induk pelindung untuk mengumpulkan seluruh isian data pengguna sebelum dikirimkan ke server.", code: "&lt;form&gt;&lt;/form&gt;" },
+            { id: 24, judul: "24. Isian Teks Masukan Input Element", isi: "Elemen interaktif yang memiliki banyak variasi tipe untuk menangkap ketikan dari pengguna.", code: "&lt;input type=\"text\"&gt;" },
+            { id: 25, judul: "25. Tombol Eksekusi Aksi Button", isi: "Pemicu interaksi klik untuk mengirimkan data form atau meluncurkan fungsi JavaScript.", code: "&lt;button&gt;Go&lt;/button&gt;" },
+            { id: 26, judul: "26. Isian Kalimat Panjang Textarea", isi: "Kotak input multi-baris yang ukurannya dapat ditarik pengguna untuk mengetik teks panjang.", code: "&lt;textarea&gt;&lt;/textarea&gt;" },
+            { id: 27, judul: "27. Label Pengenal Input Label Tag", isi: "Menghubungkan teks keterangan visual secara langsung dengan kotak input pasangannya.", code: "&lt;label&gt;&lt;/label&gt;" },
+            { id: 28, judul: "28. Pembuatan Tabel Konten Bersilangan", isi: "Tag pembungkus matriks baris dan kolom untuk menampilkan visualisasi data terstruktur tabular.", code: "&lt;table&gt;&lt;/table&gt;" },
+            { id: 29, judul: "29. Media Audio Stream Player", isi: "Sintaks modern HTML5 untuk memutar musik atau rekaman suara secara native.", code: "&lt;audio controls&gt;&lt;/audio&gt;" },
+            { id: 30, judul: "30. Pemutar Berkas Video Native", isi: "Menyematkan pemutar klip video langsung ke halaman web lengkap dengan tombol kontrol bawaan.", code: "&lt;video controls&gt;&lt;/video&gt;" }
+        ];
+
+        const dataCSS = [
+            { id: 1, judul: "1. Mekanisme Selektor Tag Elemen", isi: "Menargetkan properti gaya visual langsung ke seluruh jenis nama tag HTML yang tertera.", code: "p { color: white; }" },
+            { id: 2, judul: "2. Penargetan Selektor Class Spesifik", isi: "Mengubah gaya visual objek khusus yang memiliki penanda kelas titik tanpa mempengaruhi elemen lainnya.", code: ".glowing { text-shadow: 0 0 5px red; }" },
+            { id: 3, judul: "3. Selektor ID Mutlak Tunggal", isi: "Aturan visual dengan prioritas tinggi yang hanya menyasar satu elemen berID tanda pagar.", code: "#main-header { background: #000; }" },
+            { id: 4, judul: "4. Manajemen Warna Latar Background Color", isi: "Mengatur rona warna fondasi dasar dari suatu kontainer menggunakan kode heksadesimal atau RGB.", code: "body { background-color: #030712; }" },
+            { id: 5, judul: "5. Manipulasi Ukuran Huruf Font Size", isi: "Mengatur dimensi keragaan teks menggunakan satuan statis pixel atau satuan responsif dinamis rem.", code: "h1 { font-size: 2rem; }" },
+            { id: 6, judul: "6. Bobot Ketebalan Karakter Font Weight", isi: "Menentukan ketebalan goresan huruf teks dari tipis hingga sangat tebal hitam pekat.", code: "p { font-weight: 900; }" },
+            { id: 7, judul: "7. Jarak Spasi Antar Baris Line Height", isi: "Mengatur kelonggaran vertikal antar kalimat dalam satu paragraf agar nyaman dibaca.", code: "p { line-height: 1.8; }" },
+            { id: 8, judul: "8. Perataan Horizontal Teks Align", isi: "Mengatur arah hadap susunan kalimat teks apakah rata kiri, tengah, kanan, atau seimbang.", code: "h1 { text-align: center; }" },
+            { id: 9, judul: "9. Ruang Spasi Dalam Elemen Padding", isi: "Menciptakan bantalan jarak internal pembatas antara isi teks dengan garis pinggir tepi kontainernya.", code: ".box { padding: 20px; }" },
+            { id: 10, judul: "10. Ruang Jarak Luar Elemen Margin", isi: "Menciptakan ruang hampa pembatas di luar perimeter kotak untuk mendorong elemen lain menjauh.", code: ".card { margin-bottom: 20px; }" },
+            { id: 11, judul: "11. Ketebalan Lebar Kontainer Width", isi: "Membatasi bentangan horisontal sebuah komponen agar rapi dan tidak meluber.", code: ".container { width: 100%; }" },
+            { id: 12, judul: "12. Ketinggian Vertikal Kontainer Height", isi: "Menentukan dimensi tinggi vertikal ruang sebuah kotak atau memaksa ukuran setinggi viewport layar.", code: ".hero { height: 100vh; }" },
+            { id: 13, judul: "13. Garis Tepi Perbatasan Elemen Border", isi: "Menggambar garis pembatas di tepi luar komponen lengkap dengan ketebalan dan warna.", code: "div { border: 1px solid red; }" },
+            { id: 14, judul: "14. Sudut Lengkung Kotak Border Radius", isi: "Memotong sudut tajam siku-siku dari kontainer kotak agar menjadi membulat halus.", code: ".card { border-radius: 12px; }" },
+            { id: 15, judul: "15. Tipe Tampilan Layout Display Mode", isi: "Sistem utama yang menentukan perilaku kotak elemen di layar, seperti bertumpuk atau berjejer.", code: "div { display: block; }" },
+            { id: 16, judul: "16. Posisi Jangkar Elemen Position", isi: "Mengatur koordinat peletakan komponen dari mode normal statis, relatif, absolut, hingga fixed.", code: "nav { position: fixed; }" },
+            { id: 17, judul: "17. Kontrol Tumpukan Kedalaman Z-Index", isi: "Mengatur lapisan tumpukan dimensi 3D objek. Nilai lebih tinggi akan berada di atas.", code: ".modal { z-index: 99; }" },
+            { id: 18, judul: "18. Pemotongan Luberan Konten Overflow", isi: "Menentukan tindakan jika isi teks/gambar meluber keluar dari batas dimensi kotak wadahnya.", code: "body { overflow-x: hidden; }" },
+            { id: 19, judul: "19. Tata Letak Satu Dimensi Flexbox", isi: "Sistem layout ampuh untuk membagi ruang dan menyejajarkan item-item secara fleksibel.", code: ".box { display: flex; }" },
+            { id: 20, judul: "20. Pengarah Sumbu Flex Direction", isi: "Memutar arah barisan item flexbox dari berbaris ke samping menjadi berjejer vertikal.", code: ".menu { flex-direction: column; }" },
+            { id: 21, judul: "21. Perataan Horisontal Flex Justify Content", isi: "Mengatur distribusi ruang kosong antar item flexbox di sepanjang sumbu utama horisontal.", code: "div { justify-content: space-between; }" },
+            { id: 22, judul: "22. Perataan Vertikal Flex Align Items", isi: "Menyeimbangkan posisi tegak lurus vertikal seluruh item di dalam jalur baris flexbox.", code: "div { align-items: center; }" },
+            { id: 23, judul: "23. Tata Letak Kisi Multi-Dimensi CSS Grid", isi: "Sistem arsitektur layout terkini untuk mengendalikan baris sekaligus kolom visual secara serentak.", code: ".grid { display: grid; }" },
+            { id: 24, judul: "24. Celah Jarak Kisi-Kisi Elemen Gap", isi: "Memberikan ruang spasi kosong pembatas yang konsisten antar item di dalam layout Flexbox/Grid.", code: ".grid { gap: 20px; }" },
+            { id: 25, judul: "25. Efek Bayangan Bercahaya Box Shadow", isi: "Properti utama untuk menciptakan efek pancaran pendaran neon bercahaya di sekeliling kotak.", code: ".box { box-shadow: 0 0 10px blue; }" },
+            { id: 26, judul: "26. Efek Pendaran Teks Text Shadow", isi: "Membubuhkan pancaran cahaya radiasi khusus di sekeliling huruf teks untuk estetika futuristik.", code: "h1 { text-shadow: 0 0 10px red; }" },
+            { id: 27, judul: "27. Durasi Animasi Halus Transition", isi: "Mengatur jeda waktu perubahan properti visual agar tidak berubah mendadak melainkan bergeser halus.", code: "a { transition: all 0.3s ease; }" },
+            { id: 28, judul: "28. Transformasi Bentuk Objek Transform", isi: "Melakukan manipulasi fisik objek seperti menggeser posisi, memutar, atau memperbesar skala.", code: "img:hover { transform: scale(1.1); }" },
+            { id: 29, judul: "29. Variabel Penyimpanan CSS Custom Properties", isi: "Menyimpan nilai parameter konstan seperti warna tema di satu tempat agar bisa dipanggil berulang.", code: ":root { --main: #fff; }" },
+            { id: 30, judul: "30. Media Query Adaptasi Desain Responsif", isi: "Pondasi utama responsive web design untuk mengubah total tampilan visual sesuai ukuran resolusi monitor.", code: "@media (max-width: 768px) {}" }
+        ];
+
+        const dataJS = [
+            { id: 1, judul: "1. Deklarasi Konstan Variabel const", isi: "Tempat penyimpanan data permanen di memori yang nilainya tidak dapat diubah sepanjang aplikasi berjalan.", code: "const site = \"Matrix\";" },
+            { id: 2, judul: "2. Variabel Fleksibel Cakupan Blok let", isi: "Menyimpan informasi sementara yang isinya dapat diubah-ubah di kemudian baris program.", code: "let count = 0;" },
+            { id: 3, judul: "3. Tipe Data Kalimat String Literal", isi: "Tipe data teks mentah penulisan kalimat karakter yang dibungkus kutip atau backtick modern.", code: "const text = `Hello`;" },
+            { id: 4, judul: "4. Tipe Data Angka Matematis Number", isi: "Menampung segala jenis representasi numerik baik angka bulat maupun desimal mengambang.", code: "const pi = 3.14;" },
+            { id: 5, judul: "5. Logika Kebenaran Biner Boolean", isi: "Pernyataan kondisi logika paling mendasar yang hanya bernilai benar (true) atau salah (false).", code: "const valid = true;" },
+            { id: 6, judul: "6. Struktur Data Larik Array Daftar", isi: "Wadah penampungan indeks berurutan untuk menyimpan banyak data sekaligus di dalam satu nama variabel.", code: "const items = [1, 2, 3];" },
+            { id: 7, judul: "7. Struktur Kamus Objek Kunci Nilai Object", isi: "Struktur pemetaan data kompleks yang menyimpan informasi berdasarkan pasangan kata kunci.", code: "const user = { id: 1 };" },
+            { id: 8, judul: "8. Operator Aritmatika Penjumlahan", isi: "Simbol standar matematika untuk mengolah kalkulasi nilai angka di dalam kode program.", code: "let res = 5 + 5;" },
+            { id: 9, judul: "9. Pengondisian Logika Percabangan if else", isi: "Mengatur arah eksekusi baris kode berdasarkan terpenuhi atau tidaknya sebuah kriteria evaluasi.", code: "if(x > 5) {} else {}" },
+            { id: 10, judul: "10. Percabangan Banyak Kasus Switch Case", isi: "Alternatif pembersih kode if-else bertingkat banyak untuk mencocokkan satu nilai variabel.", code: "switch(x) { case 1: break; }" },
+            { id: 11, judul: "11. Deklarasi Fungsi Prosedural Function", isi: "Sekumpulan baris kode logika terisolasi yang diberi nama khusus agar bisa dipanggil berulang.", code: "function run() {}" },
+            { id: 12, judul: "12. Sintaks Ringkas Fungsi Arrow Function", isi: "Cara penulisan deklarasi fungsi modern yang lebih pendek menggunakan simbol panah penunjuk.", code: "const run = () => {};" },
+            { id: 13, judul: "13. Perulangan Angka Terukur for Loop", isi: "Mengeksekusi blok kode berulang kali secara otomatis berdasarkan batas hitungan angka.", code: "for(let i=0; i&lt;5; i++) {}" },
+            { id: 14, judul: "14. Perulangan Berbasis Kondisi while Loop", isi: "Melakukan putaran eksekusi program terus-menerus selama parameter syarat logika bernilai benar.", code: "while(cond) {}" },
+            { id: 15, judul: "15. Pencarian Elemen DOM querySelector", isi: "Pondasi penghubung JavaScript ke HTML untuk mendeteksi keberadaan elemen berdasarkan selektor.", code: "document.querySelector('.btn');" },
+            { id: 16, judul: "16. Penjaringan Massal Elemen querySelectorAll", isi: "Menjaring seluruh elemen yang memiliki kelas sama di halaman web dan mengembalikannya.", code: "document.querySelectorAll('.btn');" },
+            { id: 17, judul: "17. Pendengar Interaksi Pengguna addEventListener", isi: "Memasang radar pengintai pada elemen HTML untuk merespon ketukan klik, ketikan, atau scroll.", code: "el.addEventListener('click', () => {});" },
+            { id: 18, judul: "18. Manipulasi Isi Teks Node textContent", isi: "Mengubah isi tulisan teks mentah di dalam elemen HTML tanpa memproses tag kode markup.", code: "el.textContent = 'text';" },
+            { id: 19, judul: "19. Injeksi Struktur Kode innerHTML", isi: "Menyisipkan susunan tag-tag HTML baru secara dinamis langsung ke dalam struktur pohon DOM.", code: "el.innerHTML = '&lt;span&gt;&lt;/span&gt;';" },
+            { id: 20, judul: "20. Manipulasi Kelas Gaya classList toggle", isi: "Menambah atau menghapus sebuah kelas CSS pada elemen HTML secara instan untuk memicu animasi.", code: "menu.classList.toggle('show');" },
+            { id: 21, judul: "21. Manajemen Waktu Tunda setTimeout", isi: "Menunda eksekusi sebuah perintah kode logika agar baru berjalan setelah beberapa detik.", code: "setTimeout(() => {}, 1000);" },
+            { id: 22, judul: "22. Eksekusi Interval Berulang setInterval", isi: "Menjalankan sebuah fungsi secara terus menerus secara berkala berulang setiap detak waktu.", code: "setInterval(() => {}, 1000);" },
+            { id: 23, judul: "23. Perulangan Khusus Larik Array forEach", isi: "Metode bersih untuk membedah dan membaca isi setiap item di dalam list array.", code: "arr.forEach(i => {});" },
+            { id: 24, judul: "24. Rekayasa Transformasi Array .map()", isi: "Memproses isi array lama untuk ditransformasikan menjadi susunan array bentuk baru.", code: "arr.map(x => x * 2);" },
+            { id: 25, judul: "25. Penyaringan Filter Data Array .filter()", isi: "Menyaring isi array untuk membuang item yang tidak lolos seleksi kriteria penyeleksian.", code: "arr.filter(x => x > 2);" },
+            { id: 26, judul: "26. Konversi Data Objek ke Teks JSON.stringify", isi: "Mengubah struktur objek memori JavaScript menjadi teks string terformat untuk dikirim ke server.", code: "JSON.stringify({id:1});" },
+            { id: 27, judul: "27. Parsing String JSON ke Objek Real JSON.parse", isi: "Membaca teks string kiriman internet untuk diubah kembali menjadi objek hidup.", code: "JSON.parse(str);" },
+            { id: 28, judul: "28. Penanganan Kesalahan Fatal try catch", isi: "Baju jirah pelindung program untuk menangkap error runtime agar aplikasi web tidak macet.", code: "try {} catch(e) {}" },
+            { id: 29, judul: "29. Aliran Janji Data Masa Depan Promise", isi: "Objek penampung status operasi asinkronus untuk mengelola proses loading data berhasil.", code: "new Promise((res, rej) => {});" },
+            { id: 30, judul: "30. Pengambilan Arus Data API Eksternal fetch", isi: "Sintaksis mutakhir untuk melakukan request data stream HTTP menuju server API cloud.", code: "fetch(url).then(r => r.json());" }
+        ];
+
+        // --- ENGINE UTAMA APLIKASI ---
+        const appState = {
+            halamanAktif: 'html',
+            sidebarTerbuka: false
+        };
+
+        // DOM REFERENCES
+        const menuTrigger = document.getElementById('menu-trigger');
+        const sidePanel = document.getElementById('side-panel');
+        const injectLinks = document.getElementById('inject-links');
+        const contextTitle = document.getElementById('context-title');
+        const headerTitle = document.getElementById('header-title');
+
+        const pageContainers = {
+            html: document.getElementById('view-html'),
+            css: document.getElementById('view-css'),
+            javascript: document.getElementById('view-javascript')
+        };
+
+        const navMap = {
+            html: [
+                { target: 'css', label: 'Belajar CSS (30 Modul)', className: 'nav-css' },
+                { target: 'javascript', label: 'Belajar JavaScript (30 Modul)', className: 'nav-js' }
+            ],
+            css: [
+                { target: 'html', label: 'Belajar HTML (30 Modul)', className: 'nav-html' },
+                { target: 'javascript', label: 'Belajar JavaScript (30 Modul)', className: 'nav-js' }
+            ],
+            javascript: [
+                { target: 'html', label: 'Belajar HTML (30 Modul)', className: 'nav-html' },
+                { target: 'css', label: 'Belajar CSS (30 Modul)', className: 'nav-css' }
+            ]
+        };
+
+        // RENDER MATERI KE DALAM CARD HTML
+        function renderMateriCards(targetDOMId, dataMateri) {
+            const container = document.getElementById(targetDOMId);
+            if (!container) return;
+            container.innerHTML = '';
+            dataMateri.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'materi-card';
+                card.innerHTML = `
+                    <h2>${item.judul}</h2>
+                    <p>${item.isi}</p>
+                    <pre><code>${item.code}</code></pre>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // RENDERING DAFTAR UTK MENU SIDEBAR
+        function buildSidebarMenu() {
+            injectLinks.innerHTML = '';
+            const links = navMap[appState.halamanAktif];
+            contextTitle.textContent = `Pilihan Modul Sisa (${appState.halamanAktif.toUpperCase()} Aktif)`;
+
+            links.forEach(linkInfo => {
+                const button = document.createElement('div');
+                button.className = `menu-btn ${linkInfo.className}`;
+                button.textContent = linkInfo.label;
+                button.setAttribute('data-target', linkInfo.target);
+                injectLinks.appendChild(button);
+            });
+        }
+
+        // EVENT DELEGATION MENU UTK PERPINDAHAN HALAMAN
+        injectLinks.addEventListener('click', (e) => {
+            const targetBtn = e.target.closest('.menu-btn');
+            if (!targetBtn) return;
+            
+            const targetPage = targetBtn.getAttribute('data-target');
+            switchPage(targetPage);
+            toggleSidebarAction(false);
+        });
+
+        // ENGINE SWITCH PAGE
+        function switchPage(pageTargetId) {
+            if (!pageContainers[pageTargetId]) return;
+
+            appState.halamanAktif = pageTargetId;
+            Object.keys(pageContainers).forEach(key => {
+                pageContainers[key].classList.remove('active-page');
+            });
+
+            pageContainers[pageTargetId].classList.add('active-page');
+            headerTitle.textContent = `${pageTargetId.toUpperCase()} ARCHIVE`;
+
+            buildSidebarMenu();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // SEKTOR TOMBOL UTAMA (TOGGLE SIDEBAR ACTION)
+        function toggleSidebarAction(forceStatus = null) {
+            appState.sidebarTerbuka = (forceStatus !== null) ? forceStatus : !appState.sidebarTerbuka;
+            
+            if (appState.sidebarTerbuka) {
+                sidePanel.classList.add('show');
+                menuTrigger.classList.add('active-btn'); // Sudah disamakan di sini
+            } else {
+                sidePanel.classList.remove('show');
+                menuTrigger.classList.remove('active-btn'); // Sudah disamakan di sini
+            }
+        }
+
+        // SCRIPT PENANGANAN KLIK AMAN
+        document.addEventListener('click', (e) => {
+            if (menuTrigger.contains(e.target)) {
+                toggleSidebarAction();
+                return;
+            }
+
+            if (appState.sidebarTerbuka && !sidePanel.contains(e.target)) {
+                toggleSidebarAction(false);
+            }
+        });
+
+        // INISIALISASI SAAT BROWSER SELESAI LOADING DOM
+        window.addEventListener('DOMContentLoaded', () => {
+            renderMateriCards('html-content-area', dataHTML);
+            renderMateriCards('css-content-area', dataCSS);
+            renderMateriCards('js-content-area', dataJS);
+            buildSidebarMenu();
+        });
+    </script>
+</body>
+</html>
